@@ -4,8 +4,8 @@
 ''' Gets the list of the packages that can be downloaded.
 '''
 
-import urllib
-import urlparse
+import urllib.request, urllib.parse, urllib.error
+import urllib.parse
 from collections import namedtuple
 from os import listdir
 from os.path import join, exists, basename
@@ -112,7 +112,7 @@ def simple_package(package_name):
             # take into account this change. For example, this happens
             # when requesting flask-bcrypt and on Pypi the request is
             # redirected to Flask-Bcrypt
-            package_name = urlparse.urlparse(response.url).path
+            package_name = urllib.parse.urlparse(response.url).path
             package_name = package_name.replace('/simple/', '')
             package_name = package_name.replace('/', '')
 
@@ -139,15 +139,15 @@ def simple_package(package_name):
                 pk_name = pk_name.replace('#md5=', '')
 
                 # remove md5 part to make the url shorter.
-                split_data = urlparse.urlsplit(href)
-                absolute_url = urlparse.urljoin(url, split_data.path)
+                split_data = urllib.parse.urlsplit(href)
+                absolute_url = urllib.parse.urljoin(url, split_data.path)
 
-                external_link= urllib.urlencode({'remote': absolute_url})
+                external_link= urllib.parse.urlencode({'remote': absolute_url})
                 data = VersionData(pk_name, md5_data, external_link)
                 package_versions.append(data)
                 continue
 
-            parsed = urlparse.urlparse(href)
+            parsed = urllib.parse.urlparse(href)
             if parsed.hostname:
                 # then the package had a full path to the file
                 if parsed.hostname == 'pypi.python.org':
@@ -160,8 +160,8 @@ def simple_package(package_name):
                     else:
                         md5_data = ''
 
-                    absolute_url = urlparse.urljoin(url, parsed.path)
-                    external_link= urllib.urlencode({'remote': absolute_url})
+                    absolute_url = urllib.parse.urljoin(url, parsed.path)
+                    external_link= urllib.parse.urlencode({'remote': absolute_url})
                     data = VersionData(pk_name, md5_data, external_link)
                     package_versions.append(data)
 
@@ -182,15 +182,14 @@ def simple_package(package_name):
         # after collecting all external links, we insert them in the html page
         for external_url in external_links:
             package_version = basename(external_url)
-            existing_value = filter(lambda pv: pv.name == package_version,
-                                    package_versions)
+            existing_value = [pv for pv in package_versions if pv.name == package_version]
             if existing_value:
                 # if the package already exists on PyPI, then
                 # use its version instead of using the one that is
                 # hosted on a remote server
                 continue
 
-            external_link = urllib.urlencode({'remote': external_url})
+            external_link = urllib.parse.urlencode({'remote': external_url})
             data = VersionData(package_version, '', external_link)
             package_versions.append(data)
 
@@ -247,11 +246,11 @@ def get_absolute_url(url, root_url):
     >>> get_absolute_url('http://foo.bar.org/blah.zip', 'https://awesome.org/')
     'http://foo.bar.org/blah.zip'
     '''
-    parsed = urlparse.urlparse(url)
+    parsed = urllib.parse.urlparse(url)
     if url.startswith('//'):
         # this are the URLS parsed from code.google.com
         return 'http:' + url
     elif parsed.scheme:
         return url
     else:
-        return urlparse.urljoin(root_url, parsed.path)
+        return urllib.parse.urljoin(root_url, parsed.path)

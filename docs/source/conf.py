@@ -40,8 +40,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Flask-Pypi-Proxy'
-copyright = u'2013, Tomas Zulberti'
+project = 'Flask-Pypi-Proxy'
+copyright = '2013, Tomas Zulberti'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -183,8 +183,8 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'Flask-Pypi-Proxy.tex', u'Flask-Pypi-Proxy Documentation',
-   u'Tomas Zulberti', 'manual'),
+  ('index', 'Flask-Pypi-Proxy.tex', 'Flask-Pypi-Proxy Documentation',
+   'Tomas Zulberti', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -213,8 +213,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'flask-pypi-proxy', u'Flask-Pypi-Proxy Documentation',
-     [u'Tomas Zulberti'], 1)
+    ('index', 'flask-pypi-proxy', 'Flask-Pypi-Proxy Documentation',
+     ['Tomas Zulberti'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -227,8 +227,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'Flask-Pypi-Proxy', u'Flask-Pypi-Proxy Documentation',
-   u'Tomas Zulberti', 'Flask-Pypi-Proxy', 'One line description of project.',
+  ('index', 'Flask-Pypi-Proxy', 'Flask-Pypi-Proxy Documentation',
+   'Tomas Zulberti', 'Flask-Pypi-Proxy', 'One line description of project.',
    'Miscellaneous'),
 ]
 
